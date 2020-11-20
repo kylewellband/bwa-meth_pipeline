@@ -1,0 +1,17 @@
+*.bai
+*.bam
+*.bbm
+*.bed
+*.bw
+*.fai
+*.fasta
+*.fastq
+*.gz
+*.html
+*.ids
+*.json
+*.log
+*.pdf
+*.svg
+*_metrics
+*~
