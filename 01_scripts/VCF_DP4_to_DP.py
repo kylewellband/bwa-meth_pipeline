@@ -31,7 +31,7 @@ with gzip.open(outfile_name, 'wt', compresslevel=1) as outfile:
             # loop over samples
             for sample in range(9, len(fields)-1):
                 samp = fields[sample].split(':')
-                if not missing_geno.fullmatch(samp[DP4_idx]):
+                if len(samp) > 1:
                     samp[DP_idx] = str(sum(int(x) for x in samp[DP4_idx].split(',')))
                 outline.append(':'.join(samp))
             
