@@ -9,14 +9,11 @@ cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 
 # Define options
 GENOME="02_reference/genome.fasta"  # Genomic reference .fasta
-ALIGNED_FOLDER="07_deduplicated_bam"
+ALIGNED_FOLDER="07_deduplicated_bams"
 METHYL_FOLDER="08_methylation"
-NCPUS=8
+NCPUS=10
 
-# Modules
-module load htslib/1.8
-
-# Gnu Parallel
+# Run methylDackel for non-CpG contexts to infer conversion efficiencies 
 for file in $(ls -1 "$ALIGNED_FOLDER"/*.bam | perl -pe 's/.bam//g')
 do
     name=$(basename $file)

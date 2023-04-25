@@ -13,9 +13,7 @@ ALIGNED_FOLDER="07_deduplicated_bams"
 METRICS_FOLDER="11_metrics"
 NCPUS=4
 
-# Modules
-module load htslib/1.8
-
+# Calculate mbias
 for file in $(ls -1 "$ALIGNED_FOLDER"/*.bam | perl -pe 's/.bam//g')
 do
     name=$(basename $file)

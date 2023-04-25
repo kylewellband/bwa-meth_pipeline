@@ -12,18 +12,33 @@ cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 INPUT="05_aligned_bams"
 OUTPUT="06_merged_bams"
 
-# Modules
-module load samtools
-
-for file in $(ls $INPUT/*.bam | perl -pe 's/\.bam//' | perl -pe 's/.*\.//' | sort | uniq);
+# Merge multiple files into one per sample
+# Otherwise, move files to merged folder
+for file in $(ls $INPUT/*.bam | perl -pe 's/\.bam//' | perl -pe 's/.*\///' | perl -pe 's/.*\.//' | sort | uniq);
 do
-    echo "Merging sample: ${file}..."
-
-    samtools merge "$OUTPUT"/${file}.bam "$INPUT"/*${file}.bam
     
-    samtools index "$OUTPUT"/${file}.bam
+    files=$()
+    
+    for i in $(ls "$INPUT"/*${file}.bam)
+    do
+        files+=$i
+    done
 
-    #rm $INPUT/*${file}.bam
+    if [[ ${#files[@]} -eq 1 ]]
+    then
 
+        echo "Moving sample: ${file}"
+
+        mv "$INPUT"/${file}.* "$OUTPUT/"
+    
+    else
+ 
+        echo "Merging sample: ${file}..."
+
+        samtools merge "$OUTPUT"/${file}.bam "$INPUT"/*${file}.bam
+    
+        samtools index "$OUTPUT"/${file}.bam
+
+    fi
 done 2>&1 | tee $LOG_FOLDER/${TIMESTAMP}_merge_bams.log
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# 03_deduplicate_reads.sh
+# 05_deduplicate_reads.sh
 #
 
 # Copy script to log folder
@@ -13,11 +13,8 @@ cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 INPUT="06_merged_bams"
 OUTPUT="07_deduplicated_bams"
 METRICS="11_metrics"
-JAVA_OPTS="-Xmx8G"
+JAVA_OPTS="-Xmx80G"
 TMPDIR="99_tmp"
-
-# Load needed modules
-module load java/jdk/1.8.0_102
 
 # Remove duplicates from bam alignments
 for file in $(ls "$INPUT"/*.bam | perl -pe 's/\.bam//g')

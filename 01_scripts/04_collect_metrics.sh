@@ -3,7 +3,7 @@
 GENOME="02_reference/genome.fasta"
 INPUT="06_merged_bams"
 OUTPUT="11_metrics"
-JAVA_ARGS="-Xmx4g"
+JAVA_ARGS="-Xmx16g"
 
 for file in $(ls "$INPUT"/*.bam | perl -pe 's/\.bam//g')
 do
