@@ -12,7 +12,7 @@ GENOME="02_reference/genome.fasta"  # Genomic reference .fasta
 ALIGNED_FOLDER="07_deduplicated_bams"
 METHYL_FOLDER="08_methylation"
 NCPUS=20
-METHYL_BIAS="--OT 1,150,1,135 --OB 5,150,12,150 " ## Edit this based on mbias results
+METHYL_BIAS="--OT 1,150,1,140 --OB 3,150,10,150 " ## Edit this based on mbias results
 MAPPABILITY="02_reference/mappability"
 
 # Run methylDackel

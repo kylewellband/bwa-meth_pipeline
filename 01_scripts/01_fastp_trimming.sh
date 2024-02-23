@@ -9,19 +9,19 @@ cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
 # Global variables
 LENGTH=100
-QUAL=15
+QUAL=20
 INPUT="03_raw_data"
 OUTPUT="04_trimmed_reads"
 NUMCPUS=16
 SAMPLEFILE=$1
 
 # Trim reads with fastp
-for file in $(cat $SAMPLEFILE | perl -pe 's/_[12]\.fastq\.gz//g')
+for file in $(cat $SAMPLEFILE | perl -pe 's/_R*[12]\.fastq\.gz//g')
 do
     name=$(basename $file)
 
     # Fastp
-    fastp -w $NUMCPUS -i $INPUT/"$name"_1.fastq.gz -I $INPUT/"$name"_2.fastq.gz \
+    fastp -w $NUMCPUS -i $INPUT/"$name"_R1.fastq.gz -I $INPUT/"$name"_R2.fastq.gz \
         -o $OUTPUT/"$name"_R1.fastq.gz \
         -O $OUTPUT/"$name"_R2.fastq.gz  \
         --length_required="$LENGTH" \

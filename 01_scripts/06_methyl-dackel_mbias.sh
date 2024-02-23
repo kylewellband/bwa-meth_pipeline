@@ -21,4 +21,4 @@ do
     
     MethylDackel mbias -@ $NCPUS "$GENOME" $ALIGNED_FOLDER/"${name}".bam $METRICS_FOLDER/"${name}"_mbias
 
-done
+done 2>&1 | tee -a samples_mbias.txt 

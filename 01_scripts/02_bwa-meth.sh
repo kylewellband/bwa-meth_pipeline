@@ -21,7 +21,7 @@ SAMPLE_FILE="$1"
 cat "$SAMPLE_FILE" |
 while read file
 do
-    base=$(basename $file | perl -pe 's/_1.fastq.gz//' | perl -pe 's/.*\.//')
+    base=$(basename $file | perl -pe 's/_R1.fastq.gz//')
     echo "Aligning $base"
  
     # Align
@@ -30,10 +30,14 @@ do
         --read-group "${base}" \
         "$TRIMMED_FOLDER"/"$base"_R1.fastq.gz \
         "$TRIMMED_FOLDER"/"$base"_R2.fastq.gz |
-        samtools view -Sb -F4 - |
+        samtools view -Sb - |
         samtools sort -T $TEMP_FOLDER/"$base" - > "$ALIGNED_FOLDER"/"$base".bam
 
     samtools index "$ALIGNED_FOLDER"/"$base".bam
 
+    samtools flagstat "$ALIGNED_FOLDER"/"$base".bam > "$LOG_FOLDER"/"$base".flagstat
+
+    samtools idxstat "$ALIGNED_FOLDER"/"$base".bam > "$LOG_FOLDER"/"$base".idxstat
+ 
 done
 
