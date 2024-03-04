@@ -6,6 +6,7 @@ TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
 SCRIPT=$0
 NAME=$(basename $0)
 LOG_FOLDER="10_logfiles"
+METRICS_FOLDER="11_metrics"
 cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 
 # Define options
@@ -35,9 +36,9 @@ do
 
     samtools index "$ALIGNED_FOLDER"/"$base".bam
 
-    samtools flagstat "$ALIGNED_FOLDER"/"$base".bam > "$LOG_FOLDER"/"$base".flagstat
+    samtools flagstat "$ALIGNED_FOLDER"/"$base".bam > "$METRICS_FOLDER"/"$base".flagstat
 
-    samtools idxstat "$ALIGNED_FOLDER"/"$base".bam > "$LOG_FOLDER"/"$base".idxstat
+    samtools idxstat "$ALIGNED_FOLDER"/"$base".bam > "$METRICS_FOLDER"/"$base".idxstat
  
 done
 

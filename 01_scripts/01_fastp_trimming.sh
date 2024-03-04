@@ -12,7 +12,7 @@ LENGTH=100
 QUAL=20
 INPUT="03_raw_data"
 OUTPUT="04_trimmed_reads"
-NUMCPUS=16
+NUMCPUS=8
 SAMPLEFILE=$1
 
 # Trim reads with fastp
@@ -29,8 +29,8 @@ do
         --correction \
         --trim_tail1=1 \
         --trim_tail2=1 \
-        --json 10_logfiles/"$name".json \
-        --html 10_logfiles/"$name".html  \
+        --json 11_metrics/"$name".json \
+        --html 11_metrics/"$name".html  \
         --report_title="$name"report.html
 
 done 2>&1 | tee 10_logfiles/"$TIMESTAMP"_fastp.log
