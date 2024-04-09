@@ -14,14 +14,14 @@ OUTPUT="06_merged_bams"
 
 # Merge multiple files into one per sample
 # Otherwise, move files to merged folder
-for file in $(ls $INPUT/*.bam | perl -pe 's/\.bam//' | perl -pe 's/.*\///' | perl -pe 's/.*\.//' | sort | uniq);
+for file in $(ls $INPUT/*.bam | perl -pe 's/\.bam//' | perl -pe 's/.*\.//' | sort | uniq);
 do
     
     files=$()
     
     for i in $(ls "$INPUT"/*${file}.bam)
     do
-        files+=$i
+        files+=("${i}")
     done
 
     if [[ ${#files[@]} -eq 1 ]]
