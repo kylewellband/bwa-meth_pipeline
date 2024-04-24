@@ -30,13 +30,12 @@ do
         --reference "$GENOME" \
         --read-group "${base}" \
         "$TRIMMED_FOLDER"/"$base"_R1.fastq.gz \
-        "$TRIMMED_FOLDER"/"$base"_R2.fastq.gz |
-        samtools view -Sb - |
-        samtools sort -T $TEMP_FOLDER/"$base" - > "$ALIGNED_FOLDER"/"$base".bam
+        "$TRIMMED_FOLDER"/"$base"_R2.fastq.gz | \
+    tee >(samtools flagstat - > "$METRICS_FOLDER"/"$base".flagstat) |\
+    samtools view -Sb - | \
+    samtools sort -T $TEMP_FOLDER/"$base" - > "$ALIGNED_FOLDER"/"$base".bam
 
     samtools index "$ALIGNED_FOLDER"/"$base".bam
-
-    samtools flagstat "$ALIGNED_FOLDER"/"$base".bam > "$METRICS_FOLDER"/"$base".flagstat
 
     samtools idxstat "$ALIGNED_FOLDER"/"$base".bam > "$METRICS_FOLDER"/"$base".idxstat
  
